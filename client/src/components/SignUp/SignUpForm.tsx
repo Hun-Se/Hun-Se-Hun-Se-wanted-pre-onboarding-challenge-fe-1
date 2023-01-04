@@ -47,10 +47,14 @@ const SignUpForm = () => {
       <form>
         {/* <label htmlFor="name">이름</label>
         <input id="name" type="text" /> */}
-        <label htmlFor="email">이메일</label>
-        <input id="email" type="email" onChange={emailChangeHandler} />
-        <label htmlFor="password">패스워드</label>
-        <input id="password" type="password" onChange={passwordChangeHandler} />
+        <label htmlFor="signupemail">이메일</label>
+        <input id="signupemail" type="email" onChange={emailChangeHandler} />
+        <label htmlFor="signupPassword">패스워드</label>
+        <input
+          id="signupPassword"
+          type="password"
+          onChange={passwordChangeHandler}
+        />
         <button>로그인페이지 돌아가기</button>
         <button onClick={signUpHandler}>회원가입</button>
       </form>

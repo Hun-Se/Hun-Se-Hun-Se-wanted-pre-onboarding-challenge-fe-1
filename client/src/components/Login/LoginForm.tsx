@@ -17,6 +17,7 @@ const LoginForm = () => {
     event.preventDefault();
     setEnteredPassword(event.target.value);
   };
+
   const onSubmitHanlder = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -45,10 +46,14 @@ const LoginForm = () => {
   return (
     <>
       <form onSubmit={onSubmitHanlder}>
-        <label htmlFor="email">이메일</label>
-        <input id="email" type="email" onChange={emailChangeHandler} />
-        <label htmlFor="password">패스워드</label>
-        <input id="password" type="text" onChange={passwordChangeHandler} />
+        <label htmlFor="loginemail">이메일</label>
+        <input id="loginemail" type="email" onChange={emailChangeHandler} />
+        <label htmlFor="loginpassword">패스워드</label>
+        <input
+          id="loginpassword"
+          type="text"
+          onChange={passwordChangeHandler}
+        />
         <button>로그인</button>
       </form>
     </>
