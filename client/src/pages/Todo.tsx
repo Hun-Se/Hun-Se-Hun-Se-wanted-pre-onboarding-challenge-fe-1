@@ -4,7 +4,7 @@ import TodoList from "../components/Todo/TodoList";
 import TodoModel from "../models/todo";
 
 const Todo = () => {
-  const [todos, setTodos] = useState<TodoModel[]>([]);
+  const [getTodo, setTodo] = useState<TodoModel[]>([]);
 
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set("Content-Type", "application/json");
@@ -15,31 +15,26 @@ const Todo = () => {
       ?.slice(1, localStorage.getItem("access-token")!.length - 1) || "no token"
   );
 
-  const data = {
-    title: todos,
-    content: todos,
-  };
-
   useEffect(() => {
-    fetch("http://localhost:8080/todos/todos", {
-      method: "POST",
+    fetch("http://localhost:8080/todos", {
+      method: "Get",
       headers: requestHeaders,
-      body: JSON.stringify(data),
-    });
-
-    return () => {};
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setTodo(res.data);
+      });
   }, []);
 
-  const addTodoHanlder = (todotitle: string, todoText: string) => {
-    const newTodo = new TodoModel(todotitle, todoText);
-
-    setTodos((prevTodos) => {
+  const addTodoHanlder = (title: string, content: string, id: string) => {
+    const newTodo = new TodoModel(title, content, id);
+    setTodo((prevTodos) => {
       return prevTodos.concat(newTodo);
     });
   };
 
   const removeTodoHandler = (todoId: string) => {
-    setTodos((prevTodos) => {
+    setTodo((prevTodos) => {
       return prevTodos.filter((todo) => todo.id !== todoId);
     });
   };
@@ -47,7 +42,11 @@ const Todo = () => {
     <>
       <div>
         <NewTodo onAddTodo={addTodoHanlder} header={requestHeaders}></NewTodo>
-        <TodoList items={todos} onRemoveTodo={removeTodoHandler}></TodoList>
+        <TodoList
+          getTodo={getTodo}
+          onRemoveTodo={removeTodoHandler}
+          header={requestHeaders}
+        ></TodoList>
       </div>
     </>
   );

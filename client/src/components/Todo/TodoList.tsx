@@ -2,19 +2,22 @@ import TodoItem from "./TodoItem";
 import TodoModel from "../../models/todo";
 
 interface TodoListProps {
-  items: TodoModel[];
+  header: HeadersInit;
+  getTodo: TodoModel[];
   onRemoveTodo: (todoId: string) => void;
 }
 
 const TodoList = (props: TodoListProps) => {
   return (
     <ul>
-      {props.items.map((item) => (
+      {props.getTodo.map((item) => (
         <TodoItem
           key={item.id}
+          id={item.id}
           title={item.title}
-          text={item.text}
+          content={item.content}
           onRemoveTodo={props.onRemoveTodo.bind(null, item.id)}
+          header={props.header}
         />
       ))}
     </ul>

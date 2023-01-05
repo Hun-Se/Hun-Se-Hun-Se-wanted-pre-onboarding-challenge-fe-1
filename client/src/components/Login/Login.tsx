@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import LoginForm from "./LoginForm";
+import classes from "./Login.module.css";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-
-  return <>{isLoggedIn ? navigate("/todo") : <LoginForm />}</>;
+  return (
+    <>
+      <LoginForm />
+    </>
+  );
 };
 
 export default Login;

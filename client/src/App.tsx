@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import Auth from "./pages/Auth";
 import Todo from "./pages/Todo";
 
@@ -7,6 +8,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/todo" element={<Todo />} />
         </Routes>

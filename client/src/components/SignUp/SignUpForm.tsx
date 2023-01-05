@@ -45,8 +45,6 @@ const SignUpForm = () => {
   return (
     <>
       <form>
-        {/* <label htmlFor="name">이름</label>
-        <input id="name" type="text" /> */}
         <label htmlFor="signupemail">이메일</label>
         <input id="signupemail" type="email" onChange={emailChangeHandler} />
         <label htmlFor="signupPassword">패스워드</label>

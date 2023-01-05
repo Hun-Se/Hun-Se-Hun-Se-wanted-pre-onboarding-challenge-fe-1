@@ -1,12 +1,12 @@
 class TodoModel {
   id: string;
   title: string;
-  text: string;
+  content: string;
 
-  constructor(todoTitle: string, todoText: string) {
-    this.title = todoTitle;
-    this.text = todoText;
-    this.id = new Date().toISOString();
+  constructor(title: string, content: string, id: string) {
+    this.title = title;
+    this.content = content;
+    this.id = id;
   }
 }
 

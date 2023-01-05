@@ -2,13 +2,14 @@ import { useState } from "react";
 import classes from "./NewTodo.module.css";
 
 interface NewTodoProps {
-  onAddTodo: (todoTitle: string, todoText: string) => void;
+  onAddTodo: (title: string, content: string, id: string) => void;
   header: HeadersInit;
 }
 
 const NewTodo = (props: NewTodoProps) => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [id, setId] = useState<string>("");
 
   const titleChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -20,7 +21,7 @@ const NewTodo = (props: NewTodoProps) => {
     setContent(event.target.value);
   };
 
-  const submitHandler = async (event: React.FormEvent) => {
+  const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
@@ -29,14 +30,15 @@ const NewTodo = (props: NewTodoProps) => {
         content: content,
       };
 
-      const res = await fetch("http://localhost:8080/todos", {
+      fetch("http://localhost:8080/todos", {
         method: "POST",
         headers: props.header,
         body: JSON.stringify(data),
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
+          setId(res.data.id);
+          props.onAddTodo(title, content, id);
         });
     } catch (e) {
       console.error(e);
@@ -46,8 +48,6 @@ const NewTodo = (props: NewTodoProps) => {
       // throw an error
       return;
     }
-
-    props.onAddTodo(title, content);
   };
 
   return (
