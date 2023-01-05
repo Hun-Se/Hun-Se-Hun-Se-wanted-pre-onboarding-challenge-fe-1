@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
+import { render } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import classes from "./LoginForm.module.css";
 
-const LoginForm = () => {
+interface loginFromProps {
+  renderLogin: Dispatch<SetStateAction<boolean>>;
+}
+
+const LoginForm = (props: loginFromProps) => {
   const [enteredEmail, setEnteredEmail] = useState<string>("");
   const [enteredPassword, setEnteredPassword] = useState<string>("");
   const navigate = useNavigate();
@@ -19,7 +24,7 @@ const LoginForm = () => {
     setEnteredPassword(event.target.value);
   };
 
-  const onSubmitHanlder = (event: React.FormEvent) => {
+  const onLoginHandler = (event: React.MouseEvent) => {
     event.preventDefault();
 
     const data = {
@@ -44,9 +49,14 @@ const LoginForm = () => {
       });
   };
 
+  const moveSignUpHandler = (event: React.MouseEvent) => {
+    event.preventDefault();
+    props.renderLogin(false);
+  };
+
   return (
     <>
-      <form onSubmit={onSubmitHanlder}>
+      <form className={classes["form-login"]}>
         <label htmlFor="loginemail">이메일</label>
         <input id="loginemail" type="email" onChange={emailChangeHandler} />
         <label htmlFor="loginpassword">패스워드</label>
@@ -55,7 +65,8 @@ const LoginForm = () => {
           type="text"
           onChange={passwordChangeHandler}
         />
-        <button>로그인</button>
+        <button onClick={onLoginHandler}>로그인</button>
+        <button onClick={moveSignUpHandler}>회원가입</button>
       </form>
     </>
   );

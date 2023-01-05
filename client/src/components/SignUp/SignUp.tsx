@@ -1,9 +1,17 @@
+import { Dispatch, SetStateAction } from "react";
 import SignUpForm from "./SignUpForm";
+import classes from "./SignUp.module.css";
 
-const SignUp = () => {
+interface signUpProps {
+  renderLogin: Dispatch<SetStateAction<boolean>>;
+}
+
+const SignUp = (props: signUpProps) => {
   return (
     <>
-      <SignUpForm />
+      <div className={classes["container-signup"]}>
+        <SignUpForm renderLogin={props.renderLogin} />
+      </div>
     </>
   );
 };

@@ -1,10 +1,17 @@
+import { Dispatch, SetStateAction } from "react";
 import LoginForm from "./LoginForm";
 import classes from "./Login.module.css";
 
-const Login = () => {
+interface loginProps {
+  renderLogin: Dispatch<SetStateAction<boolean>>;
+}
+
+const Login = (props: loginProps) => {
   return (
     <>
-      <LoginForm />
+      <div className={classes["container-login"]}>
+        <LoginForm renderLogin={props.renderLogin} />
+      </div>
     </>
   );
 };
