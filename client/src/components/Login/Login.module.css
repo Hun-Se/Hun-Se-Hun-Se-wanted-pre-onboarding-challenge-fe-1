@@ -1,4 +1,18 @@
 .container-login {
   display: flex;
   justify-content: center;
+  margin-top: 10rem;
+  animation: modal-appear 1s ease-out forwards;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

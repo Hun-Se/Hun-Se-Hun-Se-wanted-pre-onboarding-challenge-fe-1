@@ -32,7 +32,7 @@ const LoginForm = (props: loginFromProps) => {
       password: enteredPassword,
     };
 
-    const res = fetch("http://localhost:8080/users/login", {
+    fetch("http://localhost:8080/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,6 +57,7 @@ const LoginForm = (props: loginFromProps) => {
   return (
     <>
       <form className={classes["form-login"]}>
+        <h1>로그인</h1>
         <label htmlFor="loginemail">이메일</label>
         <input id="loginemail" type="email" onChange={emailChangeHandler} />
         <label htmlFor="loginpassword">패스워드</label>

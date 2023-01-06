@@ -55,6 +55,7 @@ const SignUpForm = (props: signUpProps) => {
   return (
     <>
       <form className={classes["form-signup"]}>
+        <h1>회원가입</h1>
         <label htmlFor="signupemail">이메일</label>
         <input id="signupemail" type="email" onChange={emailChangeHandler} />
         <label htmlFor="signupPassword">패스워드</label>
