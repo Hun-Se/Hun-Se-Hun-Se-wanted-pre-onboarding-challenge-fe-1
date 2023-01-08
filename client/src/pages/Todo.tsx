@@ -1,9 +1,16 @@
 import { useState, useEffect } from "react";
+import DtailTodo from "../components/Todo/DtailTodo/DtailTodo";
 import NewTodo from "../components/Todo/NewTodo";
 import TodoList from "../components/Todo/TodoList";
 import TodoModel from "../models/todo";
 
-const Todo = () => {
+interface TodoProps {
+  onModal: boolean;
+  onClose: () => void;
+  onOpen: () => void;
+}
+
+const Todo = (props: TodoProps) => {
   const [getTodo, setTodo] = useState<TodoModel[]>([]);
 
   const requestHeaders: HeadersInit = new Headers();
@@ -44,9 +51,17 @@ const Todo = () => {
         <NewTodo onAddTodo={addTodoHanlder} header={requestHeaders}></NewTodo>
         <TodoList
           getTodo={getTodo}
-          onRemoveTodo={removeTodoHandler}
           header={requestHeaders}
-        ></TodoList>
+          onRemoveTodo={removeTodoHandler}
+          onOpen={props.onOpen}
+        />
+        {props.onModal && (
+          <DtailTodo
+            getTodo={getTodo}
+            onClose={props.onClose}
+            header={requestHeaders}
+          />
+        )}
       </div>
     </>
   );

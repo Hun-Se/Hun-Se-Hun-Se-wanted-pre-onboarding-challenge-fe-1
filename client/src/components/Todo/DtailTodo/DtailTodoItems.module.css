@@ -1,0 +1,36 @@
+.title-dtailTodo {
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 23px;
+}
+
+.content-dtailTodo {
+  height: 300px;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.container-button {
+  display: flex;
+  justify-content: right;
+  gap: 5px;
+}
+
+.container-button button {
+  width: 80px;
+  margin-bottom: 10px;
+  font: inherit;
+  background-color: #0078f0;
+  border: 1px solid #0078f0;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.container-button button:hover,
+.container-button button:active {
+  background-color: #0800f0;
+  border-color: #0800f0;
+}

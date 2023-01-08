@@ -5,18 +5,29 @@
   padding: 10px;
 }
 
-.container-list:hover {
-  background-color: white;
-  border-radius: 20px;
-}
-
 .button-remove {
-  width: 30px;
-  height: 30px;
-  background: url("../../assets/Frame.svg") no-repeat;
+  width: 20px;
+  height: 20px;
+  background: url("../../assets/RemoveIcon.svg") no-repeat center;
   background-size: contain;
-  background-position: center;
   border: 0;
   background-color: transparent;
   cursor: pointer;
+}
+
+.button-dtail {
+  width: 20px;
+  height: 20px;
+  background: url("../../assets/DtailHambuger.svg") no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.container-list button:hover,
+.container-list button:active {
+  width: 22px;
+  height: 22px;
 }

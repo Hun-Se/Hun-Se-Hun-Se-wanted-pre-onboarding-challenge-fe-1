@@ -7,6 +7,7 @@ interface propsType {
   title: string;
   content: string;
   onRemoveTodo: () => void;
+  onOpen: () => void;
 }
 const TodoItem = (props: propsType) => {
   const removeHanler = (event: React.FormEvent) => {
@@ -20,7 +21,6 @@ const TodoItem = (props: propsType) => {
     } catch (e) {
       console.error(e);
     }
-
     props.onRemoveTodo();
   };
 
@@ -30,7 +30,10 @@ const TodoItem = (props: propsType) => {
         <div>{props.title}</div>
         <div>{props.content}</div>
         <div className={classes["container-todo-button"]}>
-          {/* <button>수정</button> */}
+          <button
+            className={classes["button-dtail"]}
+            onClick={props.onOpen}
+          ></button>
           <button
             className={classes["button-remove"]}
             onClick={removeHanler}
