@@ -1,0 +1,22 @@
+.container-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.container-list:hover {
+  background-color: white;
+  border-radius: 20px;
+}
+
+.button-remove {
+  width: 30px;
+  height: 30px;
+  background: url("../../assets/Frame.svg") no-repeat;
+  background-size: contain;
+  background-position: center;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}

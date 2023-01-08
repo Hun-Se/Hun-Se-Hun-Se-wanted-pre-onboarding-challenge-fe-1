@@ -72,3 +72,9 @@
   background-color: #8f8c8b;
   border-color: #8f8c8b;
 }
+
+.form-login .button-abled:hover,
+.form-login .button-abled:active {
+  background-color: #0800f0;
+  border-color: #0800f0;
+}

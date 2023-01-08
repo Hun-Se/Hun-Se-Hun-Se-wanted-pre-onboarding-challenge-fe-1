@@ -117,12 +117,14 @@ const SignUpForm = (props: signUpProps) => {
           className={
             !(emailValidation && passwordValidation)
               ? classes["button-disabled"]
-              : ""
+              : classes["button-abled"]
           }
         >
           회원가입
         </button>
-        <button onClick={backLoginHandler}>로그인페이지 돌아가기</button>
+        <button className={classes["button-abled"]} onClick={backLoginHandler}>
+          로그인페이지 돌아가기
+        </button>
       </form>
     </>
   );

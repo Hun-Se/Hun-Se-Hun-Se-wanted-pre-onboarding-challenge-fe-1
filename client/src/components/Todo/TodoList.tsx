@@ -1,5 +1,6 @@
 import TodoItem from "./TodoItem";
 import TodoModel from "../../models/todo";
+import classes from "./TodoList.module.css";
 
 interface TodoListProps {
   header: HeadersInit;
@@ -9,7 +10,7 @@ interface TodoListProps {
 
 const TodoList = (props: TodoListProps) => {
   return (
-    <ul>
+    <ul className={classes["container-todoitem"]}>
       {props.getTodo.map((item) => (
         <TodoItem
           key={item.id}

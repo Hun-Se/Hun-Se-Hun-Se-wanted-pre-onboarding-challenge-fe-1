@@ -119,12 +119,14 @@ const LoginForm = (props: loginFromProps) => {
           className={
             !(emailValidation && passwordValidation)
               ? classes["button-disabled"]
-              : ""
+              : classes["button-abled"]
           }
         >
           로그인
         </button>
-        <button onClick={moveSignUpHandler}>회원가입</button>
+        <button className={classes["button-abled"]} onClick={moveSignUpHandler}>
+          회원가입
+        </button>
       </form>
     </>
   );

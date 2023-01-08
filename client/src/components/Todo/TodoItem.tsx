@@ -1,4 +1,5 @@
 import React from "react";
+import classes from "./TodoItem.module.css";
 
 interface propsType {
   id: string;
@@ -25,10 +26,17 @@ const TodoItem = (props: propsType) => {
 
   return (
     <>
-      <li>{props.title}</li>
-      <li>{props.content}</li>
-      <button>수정</button>
-      <button onClick={removeHanler}>삭제</button>
+      <li className={classes["container-list"]}>
+        <div>{props.title}</div>
+        <div>{props.content}</div>
+        <div className={classes["container-todo-button"]}>
+          {/* <button>수정</button> */}
+          <button
+            className={classes["button-remove"]}
+            onClick={removeHanler}
+          ></button>
+        </div>
+      </li>
     </>
   );
 };

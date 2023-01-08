@@ -1,0 +1,15 @@
+.container-todoitem {
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+  margin: 2rem auto;
+  padding: 10px;
+  list-style: none;
+  text-align: center;
+  background: #f5f2ff;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 31px;
+  cursor: pointer;
+}
