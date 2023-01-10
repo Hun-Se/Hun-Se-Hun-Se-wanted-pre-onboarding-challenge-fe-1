@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import DtailTodo from "../components/Todo/DtailTodo/DtailTodo";
 import NewTodo from "../components/Todo/NewTodo";
 import TodoList from "../components/Todo/TodoList";
@@ -10,8 +10,19 @@ interface TodoProps {
   onOpen: () => void;
 }
 
+export interface DtailTodoObject {
+  id: string;
+  title: string;
+  content: string;
+}
+
 const Todo = (props: TodoProps) => {
   const [getTodo, setTodo] = useState<TodoModel[]>([]);
+  const [dtailTodo, setDtailTodo] = useState<DtailTodoObject>({
+    id: "",
+    title: "",
+    content: "",
+  });
 
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set("Content-Type", "application/json");
@@ -31,7 +42,7 @@ const Todo = (props: TodoProps) => {
       .then((res) => {
         setTodo(res.data);
       });
-  }, []);
+  }, [getTodo]);
 
   const addTodoHanlder = (title: string, content: string, id: string) => {
     const newTodo = new TodoModel(title, content, id);
@@ -54,10 +65,11 @@ const Todo = (props: TodoProps) => {
           header={requestHeaders}
           onRemoveTodo={removeTodoHandler}
           onOpen={props.onOpen}
+          setDtailTodo={setDtailTodo}
         />
         {props.onModal && (
           <DtailTodo
-            getTodo={getTodo}
+            dtailTodo={dtailTodo}
             onClose={props.onClose}
             header={requestHeaders}
           />

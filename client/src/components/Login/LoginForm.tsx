@@ -69,7 +69,6 @@ const LoginForm = (props: loginFromProps) => {
       .then((res) => res.json())
       .then((res) => {
         if (res.message === "성공적으로 로그인 했습니다") {
-          console.log(res);
           localStorage.setItem("access-token", res.token);
           navigate("/todo");
         }

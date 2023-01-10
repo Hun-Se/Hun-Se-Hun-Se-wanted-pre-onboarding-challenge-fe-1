@@ -1,11 +1,12 @@
 import DtailTodoItems from "./DtailTodoItems";
 import Modal from "../../Modal/Modal";
 import TodoModel from "../../../models/todo";
+import { DtailTodoObject } from "../../../pages/Todo";
 import classes from "./DtailTodo.module.css";
 
 interface DtailTodoProps {
   header: HeadersInit;
-  getTodo: TodoModel[];
+  dtailTodo: DtailTodoObject;
   onClose: () => void;
 }
 
@@ -15,14 +16,12 @@ const DtailTodo = (props: DtailTodoProps) => {
       <Modal onClose={props.onClose}>
         <>
           <div>
-            {props.getTodo.map((item) => (
-              <DtailTodoItems
-                key={item.id}
-                title={item.title}
-                content={item.content}
-                onClose={props.onClose}
-              ></DtailTodoItems>
-            ))}
+            <DtailTodoItems
+              key={props.dtailTodo.id}
+              title={props.dtailTodo.title}
+              content={props.dtailTodo.content}
+              onClose={props.onClose}
+            ></DtailTodoItems>
           </div>
         </>
       </Modal>
