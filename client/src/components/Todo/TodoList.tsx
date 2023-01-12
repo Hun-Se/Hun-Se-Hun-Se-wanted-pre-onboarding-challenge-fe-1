@@ -1,13 +1,13 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 import TodoModel from "../../models/todo";
-import { DtailTodoObject } from "../../pages/Todo";
+// import { DtailTodoObject } from "../../pages/TodoPage";
 import classes from "./TodoList.module.css";
 
 interface TodoListProps {
   header: HeadersInit;
   getTodo: TodoModel[];
-  setDtailTodo: React.Dispatch<React.SetStateAction<DtailTodoObject>>;
+  setDtailTodo: React.Dispatch<React.SetStateAction<Object>>;
   onRemoveTodo: (todoId: string) => void;
   onOpen: () => void;
 }
@@ -22,7 +22,7 @@ const TodoList = (props: TodoListProps) => {
           title={item.title}
           content={item.content}
           onRemoveTodo={props.onRemoveTodo.bind(null, item.id)}
-          onOpen={props.onOpen}
+          // onOpen={props.onOpen}
           header={props.header}
           setDtailTodo={props.setDtailTodo}
         />

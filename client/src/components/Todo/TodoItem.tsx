@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import TodoModel from "../../models/todo";
-import { DtailTodoObject } from "../../pages/Todo";
+// import { DtailTodoObject } from "../../pages/TodoPage";
 
 import classes from "./TodoItem.module.css";
 
@@ -10,8 +10,8 @@ interface propsType {
   title: string;
   content: string;
   onRemoveTodo: () => void;
-  onOpen: () => void;
-  setDtailTodo: React.Dispatch<React.SetStateAction<DtailTodoObject>>;
+  // onOpen: () => void;
+  setDtailTodo: React.Dispatch<React.SetStateAction<Object>>;
 }
 const TodoItem = (props: propsType) => {
   const removeHanler = (event: React.FormEvent) => {
@@ -39,7 +39,7 @@ const TodoItem = (props: propsType) => {
       .then((res) => {
         props.setDtailTodo(res.data);
       });
-    props.onOpen();
+    // props.onOpen();
   };
 
   return (

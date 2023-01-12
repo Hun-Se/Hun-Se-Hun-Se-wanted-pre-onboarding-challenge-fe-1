@@ -1,19 +1,19 @@
-import DtailTodoItems from "./DtailTodoItems";
-import Modal from "../../Modal/Modal";
-import TodoModel from "../../../models/todo";
-import { DtailTodoObject } from "../../../pages/Todo";
-import classes from "./DtailTodo.module.css";
+// import DtailTodoItems from "./DtailTodoItems";
+// import Modal from "../../Modal/Modal";
+// import TodoModel from "../../../models/todo";
+// import { DtailTodoObject } from "../../../pages/TodoPage";
+// import classes from "./DtailTodo.module.css";
 
-interface DtailTodoProps {
-  header: HeadersInit;
-  dtailTodo: DtailTodoObject;
-  onClose: () => void;
-}
+// interface DtailTodoProps {
+//   header: HeadersInit;
+//   dtailTodo: DtailTodoObject;
+//   onClose: () => void;
+// }
 
-const DtailTodo = (props: DtailTodoProps) => {
+const DtailTodo = () => {
   return (
     <>
-      <Modal onClose={props.onClose}>
+      {/* <Modal onClose={props.onClose}>
         <>
           <div>
             <DtailTodoItems
@@ -24,7 +24,7 @@ const DtailTodo = (props: DtailTodoProps) => {
             ></DtailTodoItems>
           </div>
         </>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

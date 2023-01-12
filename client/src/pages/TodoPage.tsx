@@ -4,21 +4,21 @@ import NewTodo from "../components/Todo/NewTodo";
 import TodoList from "../components/Todo/TodoList";
 import TodoModel from "../models/todo";
 
-interface TodoProps {
-  onModal: boolean;
-  onClose: () => void;
-  onOpen: () => void;
-}
+// interface TodoProps {
+//   onModal: boolean;
+//   onClose: () => void;
+//   onOpen: () => void;
+// }
 
-export interface DtailTodoObject {
-  id: string;
-  title: string;
-  content: string;
-}
+// export interface DtailTodoObject {
+//   id: string;
+//   title: string;
+//   content: string;
+// }
 
-const Todo = (props: TodoProps) => {
+const TodoPage = () => {
   const [getTodo, setTodo] = useState<TodoModel[]>([]);
-  const [dtailTodo, setDtailTodo] = useState<DtailTodoObject>({
+  const [dtailTodo, setDtailTodo] = useState<Object>({
     id: "",
     title: "",
     content: "",
@@ -51,6 +51,9 @@ const Todo = (props: TodoProps) => {
     });
   };
 
+  // 임시
+  const onOpen = () => {};
+
   const removeTodoHandler = (todoId: string) => {
     setTodo((prevTodos) => {
       return prevTodos.filter((todo) => todo.id !== todoId);
@@ -64,19 +67,19 @@ const Todo = (props: TodoProps) => {
           getTodo={getTodo}
           header={requestHeaders}
           onRemoveTodo={removeTodoHandler}
-          onOpen={props.onOpen}
+          onOpen={onOpen}
           setDtailTodo={setDtailTodo}
         />
-        {props.onModal && (
+        {/* {props.onModal && (
           <DtailTodo
             dtailTodo={dtailTodo}
             onClose={props.onClose}
             header={requestHeaders}
           />
-        )}
+        )} */}
       </div>
     </>
   );
 };
 
-export default Todo;
+export default TodoPage;

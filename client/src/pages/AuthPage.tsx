@@ -2,7 +2,7 @@ import { useState } from "react";
 import Login from "../components/Login/Login";
 import SignUp from "../components/SignUp/SignUp";
 
-const Auth = () => {
+const AuthPage = () => {
   const [renderLogin, setRenderLogin] = useState<boolean>(true);
 
   return (
@@ -16,4 +16,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthPage;
