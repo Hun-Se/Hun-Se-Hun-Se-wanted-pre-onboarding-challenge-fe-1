@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ACCESS_TOKEN_KEY } from "../utils/constant/token_constant";
+import { ACCESS_TOKEN_KEY } from "../constant/token_constant";
 import token from "../lib/token/token";
 
 const useTokenValidation = () => {

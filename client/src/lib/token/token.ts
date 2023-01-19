@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_KEY } from "../../utils/constant/token_constant";
+import { ACCESS_TOKEN_KEY } from "../../constant/token_constant";
 
 class Token {
   public getToken(key: string): string | null {
