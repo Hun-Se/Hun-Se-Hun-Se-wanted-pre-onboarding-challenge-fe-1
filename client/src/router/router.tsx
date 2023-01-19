@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import withAuthValidation from "../../hoc/withAuthValidation";
-import HomePage from "../../pages/HomePage";
-import AuthPage from "../../pages/AuthPage";
-import TodoPage from "../../pages/TodoPage";
-import DtailTodo from "../../components/Todo/DtailTodo/DtailTodo";
+import withAuthValidation from "../hoc/withAuthValidation";
+import HomePage from "../pages/HomePage";
+import AuthPage from "../pages/AuthPage";
+import TodoPage from "../pages/TodoPage";
+import DtailTodo from "../components/Todo/DtailTodo/DtailTodo";
 
 const Router = () => {
   const AuthHomePage = withAuthValidation(HomePage);
