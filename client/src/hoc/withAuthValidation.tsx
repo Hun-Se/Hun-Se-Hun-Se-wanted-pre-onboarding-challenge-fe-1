@@ -1,5 +1,5 @@
 import { ComponentType } from "react";
-import useTokenValidation from "../hook/useTokenValidation";
+import useTokenValidation from "../hook/auth/useTokenValidation";
 
 const withAuthValidation = (AuthComponent: ComponentType) => {
   const AuthCheckHandler = () => {
