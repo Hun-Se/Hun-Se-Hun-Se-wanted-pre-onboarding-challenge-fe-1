@@ -1,4 +1,5 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
+import useAuthChangeHanler from "../../hook/auth/useAuthChangeHanler";
 import classes from "./SignUpForm.module.css";
 
 interface signUpProps {
@@ -6,74 +7,42 @@ interface signUpProps {
 }
 
 const SignUpForm = (props: signUpProps) => {
-  const [enteredEmail, setEnteredEmail] = useState<string>("");
-  const [enteredPassword, setEnteredPassword] = useState<string>("");
-
-  const [emailMessage, setEmailMessage] = useState<string>("");
-  const [passwordMessage, setPasswordMessage] = useState<string>("");
-
-  const [emailValidation, setEmailValidation] = useState<boolean>(false);
-  const [passwordValidation, setPasswordValidation] = useState<boolean>(false);
-
-  const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    const emailCurrent = event.target.value;
-    setEnteredEmail(emailCurrent);
-
-    if (!emailRegex.test(emailCurrent)) {
-      setEmailMessage("올바른 이메일 형식을 입력해주세요!");
-      setEmailValidation(false);
-    } else {
-      setEmailMessage("올바른 이메일 형식입니다");
-      setEmailValidation(true);
-    }
-  };
-
-  const passwordChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    const passwordCurrent = event.target.value;
-    setEnteredPassword(passwordCurrent);
-
-    if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage(
-        "숫자 + 영문 + 특수문자 조합으로 8자리 이상 입력해주세요!"
-      );
-      setPasswordValidation(false);
-    } else {
-      setPasswordMessage("올바른 패스워드 형식입니다!");
-      setPasswordValidation(true);
-    }
-  };
+  const {
+    emailMessage,
+    passwordMessage,
+    emailValidation,
+    passwordValidation,
+    enteredEmail,
+    enteredPassword,
+    emailChangeHandler,
+    passwordChangeHandler,
+  } = useAuthChangeHanler();
 
   const signUpHandler = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
 
-    try {
-      const data = {
-        email: enteredEmail,
-        password: enteredPassword,
-      };
+    // try {
+    //   const data = {
+    //     email: enteredEmail,
+    //     password: enteredPassword,
+    //   };
 
-      const res = await fetch("http://localhost:8080/users/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.message) alert(res.message);
-          if (res.details) alert(res.details);
-          backLoginHandler(event);
-        });
-    } catch (e) {
-      console.error(e);
-    }
+    //   const res = await fetch("http://localhost:8080/users/create", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(data),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((res) => {
+    //       if (res.message) alert(res.message);
+    //       if (res.details) alert(res.details);
+    //       backLoginHandler(event);
+    //     });
+    // } catch (e) {
+    //   console.error(e);
+    // }
   };
 
   const backLoginHandler = (event: React.MouseEvent) => {
