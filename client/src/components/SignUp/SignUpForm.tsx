@@ -1,5 +1,6 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
 import useAuthChangeHanler from "../../hook/auth/useAuthChangeHanler";
+import useSubmitHandler from "../../hook/auth/useSubmitHandler";
 import classes from "./SignUpForm.module.css";
 
 interface signUpProps {
@@ -18,32 +19,7 @@ const SignUpForm = (props: signUpProps) => {
     passwordChangeHandler,
   } = useAuthChangeHanler();
 
-  const signUpHandler = async (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-
-    // try {
-    //   const data = {
-    //     email: enteredEmail,
-    //     password: enteredPassword,
-    //   };
-
-    //   const res = await fetch("http://localhost:8080/users/create", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-    //   })
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //       if (res.message) alert(res.message);
-    //       if (res.details) alert(res.details);
-    //       backLoginHandler(event);
-    //     });
-    // } catch (e) {
-    //   console.error(e);
-    // }
-  };
+  const { onSignUpSubmit } = useSubmitHandler();
 
   const backLoginHandler = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -52,7 +28,7 @@ const SignUpForm = (props: signUpProps) => {
 
   return (
     <>
-      <form className={classes["form-signup"]}>
+      <form className={classes["form-signup"]} onSubmit={onSignUpSubmit}>
         <h1>회원가입</h1>
         <label htmlFor="signupemail">이메일</label>
         {enteredEmail.length > 0 && (
@@ -81,7 +57,6 @@ const SignUpForm = (props: signUpProps) => {
           onChange={passwordChangeHandler}
         />
         <button
-          onClick={signUpHandler}
           disabled={!(emailValidation && passwordValidation)}
           className={
             !(emailValidation && passwordValidation)

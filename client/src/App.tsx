@@ -6,15 +6,15 @@ import Router from "./router/router";
 function App() {
   const client = new QueryClient();
 
-  const [todoModalShown, setTodoModalShown] = useState<boolean>(false);
+  // const [todoModalShown, setTodoModalShown] = useState<boolean>(false);
 
-  const showDtailTodoHandler = () => {
-    setTodoModalShown(true);
-  };
+  // const showDtailTodoHandler = () => {
+  //   setTodoModalShown(true);
+  // };
 
-  const hideDtailTodoHandler = () => {
-    setTodoModalShown(false);
-  };
+  // const hideDtailTodoHandler = () => {
+  //   setTodoModalShown(false);
+  // };
 
   return (
     <>
