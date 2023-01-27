@@ -1,50 +1,36 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
 import useAuthChangeHanler from "../../hook/auth/useAuthChangeHanler";
+import useLoginSubmitHandler from "../../hook/auth/useLoginSubmit";
+import useNavigatePageHanlder from "../../hook/useNavigePageHanlder";
 import classes from "./LoginForm.module.css";
 
-interface loginFromProps {
-  renderLogin: Dispatch<SetStateAction<boolean>>;
-}
-
-const LoginForm = (props: loginFromProps) => {
+const LoginForm = () => {
   const {
     emailMessage,
     passwordMessage,
     emailValidation,
     passwordValidation,
-    enteredEmail,
-    enteredPassword,
+    email,
+    password,
     emailChangeHandler,
     passwordChangeHandler,
   } = useAuthChangeHanler();
 
-  //   fetch("http://localhost:8080/users/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (res.message === "성공적으로 로그인 했습니다") {
-  //         localStorage.setItem("access-token", res.token);
-  //         navigate("/todo");
-  //       }
-  //     });
-  // };
+  const { onLoginSubmit } = useLoginSubmitHandler();
 
-  const moveSignUpHandler = (event: React.MouseEvent) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.renderLogin(false);
+    console.log({ email, password });
+    onLoginSubmit({ email, password });
   };
+
+  const { navigateSignUpHandler } = useNavigatePageHanlder();
 
   return (
     <>
-      <form className={classes["form-login"]}>
+      <form className={classes["form-login"]} onSubmit={handleSubmit}>
         <h1>로그인</h1>
         <label htmlFor="loginemail">이메일</label>
-        {enteredEmail.length > 0 && (
+        {email.length > 0 && (
           <span
             className={`${classes["email-message"]} ${
               emailValidation ? classes.success : classes.error
@@ -56,7 +42,7 @@ const LoginForm = (props: loginFromProps) => {
         <input id="loginemail" type="email" onChange={emailChangeHandler} />
 
         <label htmlFor="loginpassword">패스워드</label>
-        {enteredPassword.length > 0 && (
+        {password.length > 0 && (
           <span
             className={`${classes["password-message"]} ${
               passwordValidation ? classes.success : classes.error
@@ -81,7 +67,10 @@ const LoginForm = (props: loginFromProps) => {
         >
           로그인
         </button>
-        <button className={classes["button-abled"]} onClick={moveSignUpHandler}>
+        <button
+          className={classes["button-abled"]}
+          onClick={navigateSignUpHandler}
+        >
           회원가입
         </button>
       </form>

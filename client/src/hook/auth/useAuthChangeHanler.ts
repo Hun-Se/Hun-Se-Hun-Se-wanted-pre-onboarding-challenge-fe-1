@@ -2,8 +2,8 @@ import { useState } from "react";
 import useAuthInputValidation from "./useAuthInputValidation";
 
 const useAuthChangeHanler = () => {
-  const [enteredEmail, setEnteredEmail] = useState<string>("");
-  const [enteredPassword, setEnteredPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const {
     emailMessage,
@@ -17,14 +17,14 @@ const useAuthChangeHanler = () => {
   const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const emailCurrent = event.target.value;
     emailValidateHandler(emailCurrent);
-    setEnteredEmail(emailCurrent);
+    setEmail(emailCurrent);
   };
 
   const passwordChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const passwordCurrent = event.target.value;
-    setEnteredPassword(passwordCurrent);
+    setPassword(passwordCurrent);
     passwordValidateHandler(passwordCurrent);
   };
 
@@ -33,8 +33,8 @@ const useAuthChangeHanler = () => {
     passwordMessage,
     emailValidation,
     passwordValidation,
-    enteredEmail,
-    enteredPassword,
+    email,
+    password,
     emailChangeHandler,
     passwordChangeHandler,
   };
