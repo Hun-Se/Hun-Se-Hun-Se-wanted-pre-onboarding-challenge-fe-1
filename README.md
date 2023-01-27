@@ -79,9 +79,32 @@ Backend
 > yarn start # http://localhost:8080
 ```
 
-## 부족한 점, 개선해야될 부분
+## 리펙토링
 
-- Todolist 수정 기능을 구현
-- 다양한 state를 효과적으로 가독성있게 리펙토링 => 공통적으로 사용하는 state들은 contextAPI나 useReducer를 사용하여 묶어보기
-- CRUD 통신의 예외처리 미흡 => try catch 구문을 이용하여 예외처리하기
-- Todolist 상세 내용 보기를 단순 modal이 아닌 경로를 이동으로 처리하기(뒤로가기를 했을 때 그 전 Todolist를 볼수 있도록)
+1. React Query 사용
+
+- suspense 적용
+
+``` JavaScript
+function App() {
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+      suspense: true,
+    },
+  },
+});
+
+return (
+  <>
+    <QueryClientProvider client={client}>
+      <Router />
+      <ReactQueryDevtools />
+    </QueryClientProvider>
+  </>
+);
+}
+
+export default App;
+```
