@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import withAuthValidation from "../hoc/withAuthValidation";
 import HomePage from "../pages/HomePage";
-import AuthPage from "../pages/AuthPage";
+import LoginPage from "../pages/LoginPage";
+import SignUpPage from "../pages/SignUpPage";
 import TodoPage from "../pages/TodoPage";
-import DtailTodo from "../components/Todo/DtailTodo/DtailTodo";
 
 const Router = () => {
   const AuthHomePage = withAuthValidation(HomePage);
@@ -13,7 +13,8 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<AuthHomePage />} />
-        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/auth/login" element={<LoginPage />} />
+        <Route path="/auth/signup" element={<SignUpPage />} />
         <Route path="/todo" element={<AuthTodoPage />} />
         <Route path="/todo/:id" element={<AuthTodoPage />} />
       </Routes>
