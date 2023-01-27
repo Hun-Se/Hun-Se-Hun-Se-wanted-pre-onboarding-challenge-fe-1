@@ -29,7 +29,8 @@ export const useSignUp = () => {
   const { mutate } = useMutation(postSignUp, {
     retry: 0,
     onSuccess: () => {
-      navigate(ROUTES.HOME);
+      alert("회원가입에 성공했습니다!");
+      navigate(ROUTES.LOGIN);
     },
     mutationKey: MUTATION_KEYS.SIGNUP,
   });
