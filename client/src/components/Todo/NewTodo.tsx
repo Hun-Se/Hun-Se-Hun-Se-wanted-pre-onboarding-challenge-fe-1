@@ -1,53 +1,16 @@
-import { useState } from "react";
+import useNewTodoChangeHandler from "../../hook/todos/useNewTodoChangeHandler";
+import useSubmitHandler from "../../hook/useSubmitHandler";
 import classes from "./NewTodo.module.css";
 
-interface NewTodoProps {
-  onAddTodo: (title: string, content: string, id: string) => void;
-  header: HeadersInit;
-}
+const NewTodo = () => {
+  const { title, content, titleChangeHandler, contentChangeHandler } =
+    useNewTodoChangeHandler();
 
-const NewTodo = (props: NewTodoProps) => {
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
-  const [id, setId] = useState<string>("");
-
-  const titleChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setTitle(event.target.value);
-  };
-
-  const contentChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setContent(event.target.value);
-  };
+  const { onCreateTodoSubmit } = useSubmitHandler();
 
   const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
-
-    try {
-      const data = {
-        title: title,
-        content: content,
-      };
-
-      fetch("http://localhost:8080/todos", {
-        method: "POST",
-        headers: props.header,
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          setId(res.data.id);
-          props.onAddTodo(title, content, id);
-        });
-    } catch (e) {
-      console.error(e);
-    }
-
-    if (title.trim().length === 0 || title.trim().length === 0) {
-      // throw an error
-      return;
-    }
+    onCreateTodoSubmit({ title, content });
   };
 
   return (
