@@ -20,7 +20,7 @@ export const postCreateTodo = async (params: CreateTodoType) => {
   return data;
 };
 
-export const putupdateTodo = async ({ id, title, content }: UpdateTodoType) => {
+export const putUpdateTodo = async ({ id, title, content }: UpdateTodoType) => {
   const { data } = await api.put(API_PATH.UPDATE_TODO(id), { title, content });
 
   return data;
