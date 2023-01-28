@@ -3,18 +3,11 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Router from "./router/router";
 
 function App() {
-  const client = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: 0,
-        suspense: true,
-      },
-    },
-  });
+  const queryClient = new QueryClient();
 
   return (
     <>
-      <QueryClientProvider client={client}>
+      <QueryClientProvider client={queryClient}>
         <Router />
         <ReactQueryDevtools />
       </QueryClientProvider>
