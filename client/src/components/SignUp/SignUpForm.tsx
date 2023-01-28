@@ -1,6 +1,6 @@
 import React from "react";
 import useAuthChangeHanler from "../../hook/auth/useAuthChangeHanler";
-import useSubmitHandler from "../../hook/auth/useSignUpSubmitHandler";
+import useSubmitHandler from "../../hook/useSubmitHandler";
 import useNavigatePageHanlder from "../../hook/useNavigePageHanlder";
 import classes from "./SignUpForm.module.css";
 

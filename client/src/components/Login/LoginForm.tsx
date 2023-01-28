@@ -1,5 +1,5 @@
 import useAuthChangeHanler from "../../hook/auth/useAuthChangeHanler";
-import useLoginSubmitHandler from "../../hook/auth/useLoginSubmit";
+import useSubmitHandler from "../../hook/useSubmitHandler";
 import useNavigatePageHanlder from "../../hook/useNavigePageHanlder";
 import classes from "./LoginForm.module.css";
 
@@ -15,11 +15,10 @@ const LoginForm = () => {
     passwordChangeHandler,
   } = useAuthChangeHanler();
 
-  const { onLoginSubmit } = useLoginSubmitHandler();
+  const { onLoginSubmit } = useSubmitHandler();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log({ email, password });
     onLoginSubmit({ email, password });
   };
 
