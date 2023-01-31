@@ -1,8 +1,22 @@
 .container-list {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 10px;
+  margin-bottom: 10px;
+  background: #f5f2ff;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 31px;
+  list-style: none;
+}
+
+.list-title {
+  flex-grow: 1;
+}
+
+.list-content {
+  flex-grow: 4;
 }
 
 .button-remove {
