@@ -8,12 +8,6 @@ export const getTodos = async () => {
   return data;
 };
 
-export const getTodoById = async (id: string) => {
-  const { data } = await api.get(API_PATH.TODO_BY_ID(id));
-
-  return data;
-};
-
 export const postCreateTodo = async (params: CreateTodoType) => {
   const { data } = await api.post(API_PATH.CREATE_TODO, params);
 
