@@ -1,30 +1,28 @@
-// import DtailTodoItems from "./DtailTodoItems";
-// import Modal from "../../Modal/Modal";
-// import TodoModel from "../../../models/todo";
-// import { DtailTodoObject } from "../../../pages/TodoPage";
-// import classes from "./DtailTodo.module.css";
+import DtailTodoItems from "./DtailTodoItems";
+import Modal from "../../Modal/Modal";
 
-// interface DtailTodoProps {
-//   header: HeadersInit;
-//   dtailTodo: DtailTodoObject;
-//   onClose: () => void;
-// }
+interface DtailTodoProps {
+  id: string;
+  title: string;
+  content: string;
+  onHiden: () => void;
+}
 
-const DtailTodo = () => {
+const DtailTodo = (props: DtailTodoProps) => {
   return (
     <>
-      {/* <Modal onClose={props.onClose}>
+      <Modal onClose={props.onHiden}>
         <>
           <div>
             <DtailTodoItems
-              key={props.dtailTodo.id}
-              title={props.dtailTodo.title}
-              content={props.dtailTodo.content}
-              onClose={props.onClose}
+              key={props.id}
+              title={props.title}
+              content={props.content}
+              onHiden={props.onHiden}
             ></DtailTodoItems>
           </div>
         </>
-      </Modal> */}
+      </Modal>
     </>
   );
 };
