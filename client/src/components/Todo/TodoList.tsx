@@ -1,6 +1,4 @@
-import React from "react";
 import TodoItem from "./TodoItem";
-// import { DtailTodoObject } from "../../pages/TodoPage";
 import { useGetTodo } from "../../hook/queries/todo_query";
 import classes from "./TodoList.module.css";
 import { TodoType } from "../../types/todos";
@@ -15,10 +13,6 @@ const TodoList = () => {
           id={todo.id}
           title={todo.title}
           content={todo.content}
-          // onRemoveTodo={props.onRemoveTodo.bind(null, item.id)}
-          // onOpen={props.onOpen}
-          // header={props.header}
-          // setDtailTodo={props.setDtailTodo}
         />
       ))}
     </ul>
