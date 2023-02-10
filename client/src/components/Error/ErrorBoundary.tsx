@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 
 export interface Props {
-  isRefresh?: boolean;
   fallback: React.ElementType;
   message?: string;
   onReset?: () => void;
@@ -40,7 +39,7 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   render() {
     const { hasError, info } = this.state;
-    const { children, message, isRefresh } = this.props;
+    const { children, message } = this.props;
 
     if (hasError) {
       const props = {
@@ -49,7 +48,6 @@ class ErrorBoundary extends React.Component<Props, State> {
       };
       return (
         <this.props.fallback
-          isRefresh={isRefresh}
           onRefresh={this.reset}
           onReset={props.onResetErrorBoundary}
           message={message}
