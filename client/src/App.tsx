@@ -1,35 +1,36 @@
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 import {
   QueryClient,
   QueryClientProvider,
   useQueryErrorResetBoundary,
 } from "react-query";
-import { ErrorBoundary } from "react-error-boundary";
+import ErrorBoundary from "./components/Error/ErrorBoundary";
 import Router from "./router/router";
+import { useApiError } from "./hook/useApiError";
+import Error from "./components/Error/Error";
 
 function App() {
   const { reset } = useQueryErrorResetBoundary();
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: 0,
-        suspense: true,
+  const { handleError } = useApiError();
+  const queryClientRef = useRef<QueryClient>();
+
+  if (!queryClientRef.current) {
+    queryClientRef.current = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: 0,
+          suspense: true,
+          onError: handleError,
+          useErrorBoundary: true,
+        },
       },
-    },
-  });
+    });
+  }
 
   return (
     <>
-      <ErrorBoundary
-        onReset={reset}
-        fallbackRender={({ resetErrorBoundary }) => (
-          <div>
-            에러입니다.
-            <button onClick={() => resetErrorBoundary()}>다시시도하기</button>
-          </div>
-        )}
-      >
-        <QueryClientProvider client={queryClient}>
+      <ErrorBoundary onReset={reset} fallback={Error} message="로드 실패">
+        <QueryClientProvider client={queryClientRef.current}>
           <Suspense fallback={<p>로딩중...</p>}>
             <Router />
             {/* <ReactQueryDevtools /> */}
