@@ -5,18 +5,20 @@ type HandlersType = {
 };
 export const useApiError = (handlers?: HandlersType) => {
   const handle403 = () => {
-    // 세션 만료 팝업 호출
+    console.log("403에러");
   };
 
   const handle500 = () => {
     // 500 상태 관련 로직
+    console.log("500에러");
   };
 
   const handleDefault = () => {
     // 기본 에러 처리 로직
+    console.log("기본에러");
   };
 
-  const defaultHandler = {
+  const defaultHandlers: HandlersType = {
     403: {
       default: handle403,
     },
@@ -36,8 +38,29 @@ export const useApiError = (handlers?: HandlersType) => {
         case handlers && !!handlers[httpStatus]?.[errorCode]?.[errorMessage]:
           handlers![httpStatus][errorCode][errorMessage]();
           break;
+
+        case handlers && !!handlers[httpStatus]?.[errorCode]:
+          handlers![httpStatus][errorCode](error);
+          break;
+
+        case handlers && !!handlers[httpStatus]:
+          handlers![httpStatus].default(error);
+          break;
+
+        case !!defaultHandlers[httpStatus][errorCode]:
+          defaultHandlers[httpStatus][errorCode]();
+          break;
+
+        case !!defaultHandlers[httpStatus]:
+          defaultHandlers[httpStatus].default();
+          break;
+
+        default:
+          defaultHandlers.default();
       }
     },
     [handlers]
   );
+
+  return { handleError };
 };

@@ -1,3 +1,4 @@
+import { useApiError } from "./../useApiError";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { postLogin, postSignUp } from "../../api/auth";
@@ -9,6 +10,7 @@ import Token from "../../lib/token/token_class";
 export const useLogin = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { handleError } = useApiError();
 
   const { mutate } = useMutation(postLogin, {
     retry: 0,
@@ -18,6 +20,7 @@ export const useLogin = () => {
       queryClient.invalidateQueries(QUERY_KEYS.TODOS);
     },
     mutationKey: MUTATION_KEYS.LOGIN,
+    onError: handleError,
   });
 
   return { mutate };
@@ -25,6 +28,7 @@ export const useLogin = () => {
 
 export const useSignUp = () => {
   const navigate = useNavigate();
+  const { handleError } = useApiError();
 
   const { mutate } = useMutation(postSignUp, {
     retry: 0,
@@ -33,6 +37,7 @@ export const useSignUp = () => {
       navigate(ROUTES.LOGIN);
     },
     mutationKey: MUTATION_KEYS.SIGNUP,
+    onError: handleError,
   });
 
   return { mutate };
