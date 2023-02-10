@@ -293,12 +293,6 @@ export default Router;
 
 ### ErrorBoundary와 Suspense
 
-- 에러페이지 이미지
-  <img width="428" alt="스크린샷 2023-02-10 오후 9 04 37" src="https://user-images.githubusercontent.com/70246174/218106375-952599d0-a9eb-40e9-a2df-2bfe50063555.png">
-
-- 로딩 중 구현화면
-  ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/70246174/218108239-c304a4ba-7b4b-475d-9a33-4d441a5eff43.gif)
-
 - ErrorBoundary를 사용하여 에러페이지 렌더링, Suspense를 사용하여 데이터를 받아올때 대기시간에 로딩 중 페이지 렌더링
 
 ```JavaScript
