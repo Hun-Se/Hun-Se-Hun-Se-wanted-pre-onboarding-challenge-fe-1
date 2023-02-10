@@ -18,6 +18,59 @@ Backend: API 제공받음
 
 - 정규표현식을 사용하여 이메일과 패스워드의 유효성 검증 기능을 만들었습니다. 패스워드는 추가로 영문,숫자, 특수문자를 꼭 포함하도록 만들었습니다.
 
+- axios interceptor를 사용하여 api통신에 필요한 header값의 처리를 반복하지 않고 효율적으로 처리했습니다.
+
+- 고차함수를 사용하여 token을 보유하고 있는 사용자만 사용할수있는 컴포넌트를 사용할 수 있도록 token 검사를 수행하는 고차함수 컴포넌트를 만들었습니다.
+
+```JavaScript
+// hoc/withAuthValidation
+import { ComponentType } from "react";
+import useTokenValidation from "../hook/auth/useTokenValidation";
+
+const withAuthValidation = (AuthComponent: ComponentType) => {
+  const AuthCheckHandler = () => {
+    const { isAuthority } = useTokenValidation();
+
+    if (!isAuthority) {
+      window.alert("토큰이 존재하지 않습니다.");
+      window.location.href = "/auth/login";
+      return <></>;
+    }
+
+    return <AuthComponent />;
+  };
+
+  return AuthCheckHandler;
+};
+
+export default withAuthValidation;
+
+```
+
+- Suspense와 ErrorBoundary를 사용하여 로딩화면/에러피에지 기능을 만들었습니다.
+
+- 관심사에 분리에 따라 View와 Logic을 구분하였습니다.
+
+- constants폴더를 생성하여 반복되어 사용되는 고정값들을 상수화하여 타이핑 하지 않고 불러올 수 있도록 만들었습니다.
+  예시)
+
+```JavaScript
+// constant/api_path_constant.ts
+const API_PATH = {
+  LOGIN: "/users/login",
+  SIGNUP: "/users/create",
+  TODOS: "/todos",
+  TODO_BY_ID: (id: string) => `/todos/${id}`,
+  CREATE_TODO: "/todos",
+  UPDATE_TODO: (id: string) => `/todos/${id}`,
+  DELETE_TODO: (id: string) => `/todos/${id}`,
+};
+
+export default API_PATH;
+
+
+```
+
 ## Login / SignUp 요구사항 체크리스트
 
 - /auth 경로에 로그인 / 회원가입 기능
@@ -51,8 +104,6 @@ Backend
 2023-02-03
 
 ### react-query 사용
-
-1. suspense 적용 -> suspense 삭제
 
 - suspense: true 옵션처럼, useErrorBoundary: true 을 사용하면 에러 발생 시 상위 스코프의 에러 바운더리로 에러를 전파할 수 있다.
 
@@ -237,3 +288,118 @@ export default Router;
 - 고차함수를 사용하여 토큰이 인증되어야 인수로 받은 인증된 컴포넌트를 출력하고 해당 경로로 이동하도록 하였다.
 
 - customHook을 사용하여 View와 Logic 분리
+
+2023-02-10
+
+### ErrorBoundary와 Suspense
+
+에러페이지 이미지
+<img width="428" alt="스크린샷 2023-02-10 오후 9 04 37" src="https://user-images.githubusercontent.com/70246174/218106375-952599d0-a9eb-40e9-a2df-2bfe50063555.png">
+
+로딩 중
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/70246174/218108239-c304a4ba-7b4b-475d-9a33-4d441a5eff43.gif)
+
+- ErrorBoundary를 사용하여 에러페이지 렌더링, Suspense를 사용하여 데이터를 받아올때 대기시간에 로딩 중 페이지 렌더링
+
+```JavaScript
+function App() {
+  const { reset } = useQueryErrorResetBoundary();
+  const { handleError } = useApiError();
+  const queryClientRef = useRef<QueryClient>();
+
+  if (!queryClientRef.current) {
+    queryClientRef.current = new QueryClient({
+      defaultOptions: {
+        queries: {
+          retry: 0,
+          suspense: true,
+          onError: handleError,
+          useErrorBoundary: true,
+        },
+      },
+    });
+  }
+
+  return (
+    <>
+      <ErrorBoundary onReset={reset} fallback={Error} message="로드 실패">
+        <QueryClientProvider client={queryClientRef.current}>
+          <Suspense fallback={<p>로딩중...</p>}>
+            <Router />
+            <ReactQueryDevtools />
+          </Suspense>
+        </QueryClientProvider>
+      </ErrorBoundary>
+    </>
+  );
+}
+
+```
+
+- ErrorBoundary는 여러 에러 상황에서 동적으로 사용 가능하게 하기위하여 prop을 전달받아 재사용 가능한 컴포넌트로 만들었다.
+
+```JavaScript
+import React, { ReactNode } from "react";
+
+export interface Props {
+  fallback: React.ElementType;
+  message?: string;
+  onReset?: () => void;
+  children?: ReactNode;
+}
+
+interface State {
+  hasError: boolean;
+  info: Error | null;
+}
+
+const initialState: State = {
+  hasError: false,
+  info: null,
+};
+
+class ErrorBoundary extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = initialState;
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, info: error };
+  }
+
+  onResetErrorBoundary = () => {
+    const { onReset } = this.props;
+    onReset == null ? void 0 : onReset();
+    this.reset();
+  };
+
+  reset() {
+    this.setState(initialState);
+  }
+
+  render() {
+    const { hasError, info } = this.state;
+    const { children, message} = this.props;
+
+    if (hasError) {
+      const props = {
+        error: info,
+        onResetErrorBoundary: this.onResetErrorBoundary,
+      };
+      return (
+        <this.props.fallback
+          isRefresh={isRefresh}
+          onRefresh={this.reset}
+          onReset={props.onResetErrorBoundary}
+          message={message}
+        />
+      );
+    }
+    return children;
+  }
+}
+
+export default ErrorBoundary;
+
+```
