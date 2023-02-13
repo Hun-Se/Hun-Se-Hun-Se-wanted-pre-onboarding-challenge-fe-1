@@ -154,68 +154,6 @@ export default App;
 
 - 또한 통신을 공통적으로 요청하는 부분과 경로를 컴포넌트화하여 재사용성과 가독성을 높였다.
 
-- 기존 Fetch 사용
-
-```JavaScript
-const signUpHandler = async (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-
-    try {
-      const data = {
-        email: enteredEmail,
-        password: enteredPassword,
-      };
-
-      const res = await fetch("http://localhost:8080/users/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.message) alert(res.message);
-          if (res.details) alert(res.details);
-          backLoginHandler(event);
-        });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-```
-
-- Axios 사용
-
-```JavaScript
-// api/index.ts
-const api = axios.create({
-  baseURL: "http://localhost:8080",
-  headers: {
-    "Content-type": "application/json",
-  },
-});
-
-api.interceptors.request.use((config) => {
-  if (!Token.getToken(ACCESS_TOKEN_KEY)) return config;
-
-  config.headers = {
-    "Content-type": "application/json",
-    Authorization: Token.getToken(ACCESS_TOKEN_KEY),
-  };
-
-  return config;
-});
-
-// api/postSignUp.ts
-export const postSignUp = async (params: AuthType) => {
-  const { data } = await api.post(API_PATH.SIGNUP, params);
-
-  return data;
-};
-
-```
-
 - axios interceptor의 장점:
 
   - 배포된 서버에 api를 요청할 때 header에 필수적으로 들어가야하는 부분이 있을 경우, 매번 요청 때마다 header에 값을 입력해줘야 한다. interceptors를 사용해서 api 요청 시 자동으로 해당 값이 들어가서 매 요청 때마다 header에 값을 넣지 않아도 되고, 코드도 간결해지고 복잡성도 줄어든다는 장점이 있었다.
@@ -236,6 +174,12 @@ aixos interceptor docs: https://axios-http.com/kr/docs/interceptors
 - 로직과 뷰를 분리하여 커스텀훅으로 컴포넌트를 구성하는 방식을 채택하였고 인증/인가의 횡단관심사를 묶어서 구성하였다.
 
 - 페이지 접속시 토큰인증
+
+- 고차함수를 사용하여 토큰이 인증되어야 인수로 받은 인증된 컴포넌트를 출력하고 해당 경로로 이동하도록 하였다.
+
+- customHook을 사용하여 View와 Logic 분리
+
+- 토큰인증 고차함수(Hoc)
 
 ```JavaScript
 // hoc/withAuthValidation
@@ -280,20 +224,16 @@ const Router = () => {
 };
 
 export default Router;
-
-
-
 ```
 
-- 고차함수를 사용하여 토큰이 인증되어야 인수로 받은 인증된 컴포넌트를 출력하고 해당 경로로 이동하도록 하였다.
-
-- customHook을 사용하여 View와 Logic 분리
+---
 
 2023-02-10
 
 ### ErrorBoundary와 Suspense
 
 - ErrorBoundary를 사용하여 에러페이지 렌더링, Suspense를 사용하여 데이터를 받아올때 대기시간에 로딩 중 페이지 렌더링
+- ErrorBoundary는 여러 에러 상황에서 동적으로 사용 가능하게 하기위하여 prop을 전달받아 재사용 가능한 컴포넌트로 만들었다.
 
 ```JavaScript
 function App() {
@@ -329,8 +269,6 @@ function App() {
 }
 
 ```
-
-- ErrorBoundary는 여러 에러 상황에서 동적으로 사용 가능하게 하기위하여 prop을 전달받아 재사용 가능한 컴포넌트로 만들었다.
 
 ```JavaScript
 import React, { ReactNode } from "react";
