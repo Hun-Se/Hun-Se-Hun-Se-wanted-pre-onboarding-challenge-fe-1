@@ -1,0 +1,15 @@
+.logout-button {
+  font: inherit;
+  background-color: #0078f0;
+  border: 1px solid #0078f0;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-button:hover,
+.logout-button:active {
+  background-color: #0800f0;
+  border-color: #0800f0;
+}
